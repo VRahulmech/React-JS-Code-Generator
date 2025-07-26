@@ -2,6 +2,7 @@ import streamlit as st
 from llm import get_chain
 from retriever import setup_retriever
 
+
 def run_instruction(instruction: str):
     retriever = setup_retriever()
     chain = get_chain()
@@ -10,7 +11,7 @@ def run_instruction(instruction: str):
     context = "\n\n".join([doc.page_content for doc in context_docs])
 
     result = chain.invoke({"question": instruction, "context": context})
-    return result.content.strip()
+    return result["content"].strip()
 
 def save_jsx(code, filename="generated_code.jsx"):
     with open(filename, "w", encoding="utf-8") as f:
